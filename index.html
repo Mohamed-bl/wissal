@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TheGodor - Modern Raffle Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #f59e0b;
+            --secondary-light: #fbbf24;
+            --dark: #0f172a;
+            --dark-light: #1e293b;
+            --gray: #64748b;
+            --light: #e2e8f0;
+            --success: #10b981;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a1f3a 100%);
+            color: var(--light);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .background-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+        
+        .shape-1 {
+            width: 600px;
+            height: 600px;
+            background: var(--primary);
+            top: -300px;
+            right: -200px;
+        }
+        
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--secondary);
+            bottom: -200px;
+            left: -100px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .profile-photo {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 4px solid var(--glass-border);
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .profile-photo::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0.7;
+            filter: blur(15px);
+        }
+        
+        .profile-photo i {
+            font-size: 60px;
+            color: white;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, var(--primary-light), var(--secondary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+        
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .twitter:hover {
+            background: #1DA1F2;
+        }
+        
+        .telegram:hover {
+            background: #0088cc;
+        }
+        
+        .discord:hover {
+            background: #5865F2;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 900px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        h2 i {
+            color: var(--secondary);
+        }
+        
+        .highlight {
+            color: var(--secondary-light);
+            font-weight: 600;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin: 20px 0;
+            padding: 15px;
+            background: var(--glass);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .partners {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 25px 0;
+        }
+        
+        @media (max-width: 700px) {
+            .partners {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .partner-card {
+            background: var(--glass);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+        
+        .partner-card:hover {
+            background: rgba(30, 41, 59, 0.9);
+            transform: translateY(-3px);
+        }
+        
+        .partner-logo {
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--primary-light);
+        }
+        
+        .partner-subtitle {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+        
+        h3 {
+            font-size: 1.2rem;
+            margin: 20px 0 10px;
+            color: var(--light);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        h3 i {
+            color: var(--secondary);
+            font-size: 1rem;
+        }
+        
+        .partner-features {
+            list-style-type: none;
+            margin: 15px 0;
+        }
+        
+        .partner-features li {
+            margin-bottom: 10px;
+            padding-left: 24px;
+            position: relative;
+        }
+        
+        .partner-features li:before {
+            content: "✓";
+            color: var(--success);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .code-section {
+            background: linear-gradient(135deg, var(--dark), var(--dark-light));
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: center;
+            border: 1px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .code-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+        
+        .code-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 5px;
+        }
+        
+        .code {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--secondary-light);
+            letter-spacing: 3px;
+            margin: 10px 0;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .note {
+            font-size: 0.85rem;
+            color: var(--gray);
+            font-style: italic;
+            margin-top: 10px;
+        }
+        
+        .description-section {
+            margin-top: 40px;
+        }
+        
+        .description-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .description-card {
+            background: var(--glass);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+        
+        .description-card:hover {
+            background: rgba(30, 41, 59, 0.9);
+            transform: translateY(-5px);
+        }
+        
+        .description-card h3 {
+            color: var(--primary-light);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .description-card h3 i {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+            border-top: 1px solid var(--glass-border);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-light);
+        }
+        
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .countdown-item {
+            background: var(--glass);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            min-width: 70px;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .countdown-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary-light);
+        }
+        
+        .countdown-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+        
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .profile-photo {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .countdown {
+                gap: 10px;
+            }
+            
+            .countdown-item {
+                min-width: 60px;
+                padding: 10px;
+            }
+            
+            .countdown-value {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <div class="profile-container">
+                <div class="profile-photo">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <h1>TheGodor</h1>
+                <p class="tagline">Next Generation Raffle & Wager Platform</p>
+                
+                <div class="countdown">
+                    <div class="countdown-item">
+                        <div class="countdown-value">07</div>
+                        <div class="countdown-label">DAYS</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-value">14</div>
+                        <div class="countdown-label">HOURS</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-value">32</div>
+                        <div class="countdown-label">MINUTES</div>
+                    </div>
+                </div>
+                
+                <div class="social-buttons">
+                    <a href="#" class="social-btn twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-btn telegram">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                    <a href="#" class="social-btn discord">
+                        <i class="fab fa-discord"></i>
+                    </a>
+                </div>
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <div class="card">
+                <h2><i class="fas fa-trophy"></i> Weekly Raffle</h2>
+                <p>Take part in a wager-race with a print packet <span class="highlight">@GO.OOO</span> and take part in b4-waerley raffle!</p>
+                
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-text">Reach with your unique identifier and join the weekly shuffle.</div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-text">Complete the wager requirements to qualify for the raffle draw.</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2><i class="fas fa-calendar-alt"></i> Monthly WagerRace</h2>
+                <p>Join the monthly wager-race running from the 7th to 7th with increased rewards!</p>
+                
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-text">Register for the monthly event before the deadline.</div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-text">Maintain consistent participation throughout the month.</div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-text">Claim your rewards at the end of the cycle.</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2><i class="fas fa-handshake"></i> Partner Platforms</h2>
+            <p>We've partnered with leading platforms to enhance your experience and rewards.</p>
+            
+            <div class="partners">
+                <div class="partner-card">
+                    <div class="partner-logo">SHUFFLE <span class="badge">POPULAR</span></div>
+                    <div class="partner-subtitle">CIVPTOGABNO.6 SPORTSBOOK</div>
+                    
+                    <h3><i class="fas fa-star"></i> Top Features</h3>
+                    <ul class="partner-features">
+                        <li>Instant processing with no delays or negative balances</li>
+                        <li>Wager-race optimized for "practical" TheGodor strategies</li>
+                        <li>Evaluate giveaways, challenges, and social engagement metrics</li>
+                    </ul>
+                    
+                    <div class="code-section">
+                        <div class="code-label">REGISTER WITH MY CODE</div>
+                        <div class="code">THEGODOR</div>
+                        <div class="note">Use this code during registration to unlock exclusive benefits</div>
+                    </div>
+                </div>
+                
+                <div class="partner-card">
+                    <div class="partner-logo">LUXDROP <span class="badge">NEW</span></div>
+                    <div class="partner-subtitle">LABOX LUXURY TEAMS</div>
+                    
+                    <h3><i class="fas fa-gem"></i> Premium Features</h3>
+                    <ul class="partner-features">
+                        <li>File/app integration saving your weekly "TheGodor" progress</li>
+                        <li>Direct access to exclusive wager-races and priority support</li>
+                        <li>Instant verification with enhanced security protocols</li>
+                    </ul>
+                    
+                    <div class="code-section">
+                        <div class="code-label">REGISTER WITH MY CODE</div>
+                        <div class="code">THEGODOR</div>
+                        <div class="note">Use this code during registration to unlock premium features</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="description-section">
+            <div class="card">
+                <h2><i class="fas fa-info-circle"></i> About TheGodor Platform</h2>
+                <div class="description-grid">
+                    <div class="description-card">
+                        <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
+                        <p>To revolutionize digital raffles and wager-based competitions through transparency, innovation, and community-centric design.</p>
+                    </div>
+                    <div class="description-card">
+                        <h3><i class="fas fa-shield-alt"></i> Security First</h3>
+                        <p>Advanced encryption, multi-factor authentication, and regular security audits ensure your data and funds remain protected.</p>
+                    </div>
+                    <div class="description-card">
+                        <h3><i class="fas fa-users"></i> Community Driven</h3>
+                        <p>Our platform thrives on community feedback and engagement, constantly evolving based on user input and market trends.</p>
+                    </div>
+                    <div class="description-card">
+                        <h3><i class="fas fa-rocket"></i> Future Roadmap</h3>
+                        <p>Expanding to mobile apps, additional game modes, and international markets to serve our growing global community.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2023 TheGodor Platform. All rights reserved.</p>
+            <p>Participate responsibly. Must be 18+ to join wager races. Please gamble responsibly.</p>
+            <div class="footer-links">
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Contact Support</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Simple countdown timer (for demonstration)
+        function updateCountdown() {
+            const daysElement = document.querySelector('.countdown-value');
+            // This is just a demo - in a real app you would calculate actual time remaining
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCountdown();
+        });
+    </script>
+</body>
+</html>
