@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TheGodor - Modern Raffle Platform</title>
+    <title>hunchos007tv- Modern Raffle Platform</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -74,6 +74,7 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            position: relative;
         }
         
         header {
@@ -347,6 +348,15 @@
             font-size: 0.9rem;
             color: var(--gray);
             margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .code-label i {
+            color: var(--secondary-light);
+            font-size: 1.2rem;
         }
         
         .code {
@@ -472,6 +482,108 @@
             margin-top: 5px;
         }
         
+        /* Circular WagerRace Card Styles */
+        .wagerrace-circle-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 40px 0;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .wagerrace-circle {
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .wagerrace-circle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+        
+        .wagerrace-circle::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0.2;
+            filter: blur(15px);
+        }
+        
+        .wagerrace-circle h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .wagerrace-circle h2 i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .wagerrace-circle p {
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .wagerrace-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+        }
+        
+        .wagerrace-step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: var(--glass);
+            border-radius: 20px;
+            border-left: 3px solid var(--primary);
+        }
+        
+        .wagerrace-step-number {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+        }
+        
+        .wagerrace-step-text {
+            font-size: 0.85rem;
+        }
+        
         @media (max-width: 600px) {
             h1 {
                 font-size: 2.2rem;
@@ -498,6 +610,20 @@
             .countdown-value {
                 font-size: 1.5rem;
             }
+            
+            .wagerrace-circle {
+                width: 320px;
+                height: 320px;
+                padding: 30px;
+            }
+            
+            .wagerrace-circle h2 {
+                font-size: 1.3rem;
+            }
+            
+            .wagerrace-step-text {
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
@@ -513,7 +639,7 @@
                 <div class="profile-photo">
                     <i class="fas fa-crown"></i>
                 </div>
-                <h1>TheGodor</h1>
+                <h1>hunchos007tv</h1>
                 <p class="tagline">Next Generation Raffle & Wager Platform</p>
                 
                 <div class="countdown">
@@ -522,62 +648,50 @@
                         <div class="countdown-label">DAYS</div>
                     </div>
                     <div class="countdown-item">
-                        <div class="countdown-value">14</div>
+                        <div class="countdown-value">24</div>
                         <div class="countdown-label">HOURS</div>
                     </div>
                     <div class="countdown-item">
-                        <div class="countdown-value">32</div>
+                        <div class="countdown-value">60</div>
                         <div class="countdown-label">MINUTES</div>
                     </div>
                 </div>
                 
                 <div class="social-buttons">
-                    <a href="#" class="social-btn twitter">
-                        <i class="fab fa-twitter"></i>
+                    <a href="https://www.instagram.com/hunchos007tv/" class="social-btn instagram">
+                        <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="#" class="social-btn telegram">
-                        <i class="fab fa-telegram"></i>
+                    <a href="https://www.youtube.com/@hunchos007" class="social-btn youtube">
+                        <i class="fab fa-youtube"></i>
                     </a>
-                    <a href="#" class="social-btn discord">
+                    <a href="https://discord.gg/pEA5sUtNHQ" class="social-btn discord">
                         <i class="fab fa-discord"></i>
                     </a>
                 </div>
             </div>
         </header>
         
-        <div class="main-content">
-            <div class="card">
-                <h2><i class="fas fa-trophy"></i> Weekly Raffle</h2>
-                <p>Take part in a wager-race with a print packet <span class="highlight">@GO.OOO</span> and take part in b4-waerley raffle!</p>
-                
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div class="step-text">Reach with your unique identifier and join the weekly shuffle.</div>
-                </div>
-                
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div class="step-text">Complete the wager requirements to qualify for the raffle draw.</div>
-                </div>
-            </div>
-            
-            <div class="card">
+        <!-- Circular WagerRace Card -->
+        <div class="wagerrace-circle-container">
+            <div class="wagerrace-circle">
                 <h2><i class="fas fa-calendar-alt"></i> Monthly WagerRace</h2>
                 <p>Join the monthly wager-race running from the 7th to 7th with increased rewards!</p>
                 
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div class="step-text">Register for the monthly event before the deadline.</div>
-                </div>
-                
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div class="step-text">Maintain consistent participation throughout the month.</div>
-                </div>
-                
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div class="step-text">Claim your rewards at the end of the cycle.</div>
+                <div class="wagerrace-steps">
+                    <div class="wagerrace-step">
+                        <div class="wagerrace-step-number">1</div>
+                        <div class="wagerrace-step-text">Register for the monthly event before the deadline.</div>
+                    </div>
+                    
+                    <div class="wagerrace-step">
+                        <div class="wagerrace-step-number">2</div>
+                        <div class="wagerrace-step-text">Maintain consistent participation throughout the month.</div>
+                    </div>
+                    
+                    <div class="wagerrace-step">
+                        <div class="wagerrace-step-number">3</div>
+                        <div class="wagerrace-step-text">Claim your rewards at the end of the cycle.</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -588,8 +702,8 @@
             
             <div class="partners">
                 <div class="partner-card">
-                    <div class="partner-logo">SHUFFLE <span class="badge">POPULAR</span></div>
-                    <div class="partner-subtitle">CIVPTOGABNO.6 SPORTSBOOK</div>
+                    <div class="partner-logo">Stake.com </div>
+                    <div class="partner-subtitle">World's Largest Online Casino and Sportsbook</div>
                     
                     <h3><i class="fas fa-star"></i> Top Features</h3>
                     <ul class="partner-features">
@@ -599,15 +713,17 @@
                     </ul>
                     
                     <div class="code-section">
-                        <div class="code-label">REGISTER WITH MY CODE</div>
-                        <div class="code">THEGODOR</div>
+                        <div class="code-label">
+                            <i class="fas fa-gamepad"></i> REGISTER WITH MY CODE
+                        </div>
+                        <div class="code">STAKE.COM</div>
                         <div class="note">Use this code during registration to unlock exclusive benefits</div>
                     </div>
                 </div>
                 
                 <div class="partner-card">
-                    <div class="partner-logo">LUXDROP <span class="badge">NEW</span></div>
-                    <div class="partner-subtitle">LABOX LUXURY TEAMS</div>
+                    <div class="partner-logo">Stake.us</div>
+                    
                     
                     <h3><i class="fas fa-gem"></i> Premium Features</h3>
                     <ul class="partner-features">
@@ -617,40 +733,18 @@
                     </ul>
                     
                     <div class="code-section">
-                        <div class="code-label">REGISTER WITH MY CODE</div>
-                        <div class="code">THEGODOR</div>
+                        <div class="code-label">
+                            <i class="fas fa-gamepad"></i> REGISTER WITH MY CODE
+                        </div>
+                        <div class="code">STAKE.US</div>
                         <div class="note">Use this code during registration to unlock premium features</div>
                     </div>
                 </div>
             </div>
         </div>
         
-        <div class="description-section">
-            <div class="card">
-                <h2><i class="fas fa-info-circle"></i> About TheGodor Platform</h2>
-                <div class="description-grid">
-                    <div class="description-card">
-                        <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
-                        <p>To revolutionize digital raffles and wager-based competitions through transparency, innovation, and community-centric design.</p>
-                    </div>
-                    <div class="description-card">
-                        <h3><i class="fas fa-shield-alt"></i> Security First</h3>
-                        <p>Advanced encryption, multi-factor authentication, and regular security audits ensure your data and funds remain protected.</p>
-                    </div>
-                    <div class="description-card">
-                        <h3><i class="fas fa-users"></i> Community Driven</h3>
-                        <p>Our platform thrives on community feedback and engagement, constantly evolving based on user input and market trends.</p>
-                    </div>
-                    <div class="description-card">
-                        <h3><i class="fas fa-rocket"></i> Future Roadmap</h3>
-                        <p>Expanding to mobile apps, additional game modes, and international markets to serve our growing global community.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
         <footer>
-            <p>&copy; 2023 TheGodor Platform. All rights reserved.</p>
+            <p>&copy; 2023 hunchos007tv Platform. All rights reserved.</p>
             <p>Participate responsibly. Must be 18+ to join wager races. Please gamble responsibly.</p>
             <div class="footer-links">
                 <a href="#">Terms of Service</a>
