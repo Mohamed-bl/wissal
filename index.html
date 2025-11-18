@@ -21,6 +21,7 @@
             --card-bg: rgba(30, 41, 59, 0.7);
             --glass: rgba(255, 255, 255, 0.05);
             --glass-border: rgba(255, 255, 255, 0.1);
+            --kick: #53fc18;
         }
         
         * {
@@ -119,19 +120,93 @@
             filter: blur(15px);
         }
         
-        .profile-photo i {
-            font-size: 60px;
-            color: white;
+        .profile-photo img {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+        }
+        
+        .name-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+            position: relative;
         }
         
         h1 {
             font-size: 3rem;
             font-weight: 800;
-            margin-bottom: 10px;
             background: linear-gradient(to right, var(--primary-light), var(--secondary-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: -0.5px;
+        }
+        
+        .online-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--success);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .online-badge::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        .kick-button {
+            position: absolute;
+            right: -45px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, var(--kick), #3bb710);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(83, 252, 24, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1;
+            white-space: nowrap;
+        }
+        
+        .kick-button:hover {
+            transform: translateY(-50%) scale(1.05);
+            box-shadow: 0 6px 15px rgba(83, 252, 24, 0.4);
+        }
+        
+        .kick-button i {
+            font-size: 1rem;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+            }
         }
         
         .tagline {
@@ -169,16 +244,20 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
         
-        .twitter:hover {
-            background: #1DA1F2;
+        .instagram:hover {
+            background: #E1306C;
         }
         
-        .telegram:hover {
-            background: #0088cc;
+        .youtube:hover {
+            background: #FF0000;
         }
         
         .discord:hover {
             background: #5865F2;
+        }
+        
+        .kick:hover {
+            background: var(--kick);
         }
         
         .main-content {
@@ -270,11 +349,22 @@
             padding: 25px;
             border: 1px solid var(--glass-border);
             transition: all 0.3s ease;
+            position: relative;
         }
         
         .partner-card:hover {
             background: rgba(30, 41, 59, 0.9);
             transform: translateY(-3px);
+        }
+        
+        .partner-link {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            cursor: pointer;
         }
         
         .partner-logo {
@@ -454,34 +544,6 @@
             margin-left: 10px;
         }
         
-        .countdown {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .countdown-item {
-            background: var(--glass);
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            min-width: 70px;
-            border: 1px solid var(--glass-border);
-        }
-        
-        .countdown-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--secondary-light);
-        }
-        
-        .countdown-label {
-            font-size: 0.8rem;
-            color: var(--gray);
-            margin-top: 5px;
-        }
-        
         /* Circular WagerRace Card Styles */
         .wagerrace-circle-container {
             display: flex;
@@ -584,6 +646,26 @@
             font-size: 0.85rem;
         }
         
+        /* Partner Image Styles */
+        .partner-image {
+            width: 100%;
+            height: 120px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-border);
+        }
+        
+        .partner-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
         @media (max-width: 600px) {
             h1 {
                 font-size: 2.2rem;
@@ -596,19 +678,6 @@
             .profile-photo {
                 width: 120px;
                 height: 120px;
-            }
-            
-            .countdown {
-                gap: 10px;
-            }
-            
-            .countdown-item {
-                min-width: 60px;
-                padding: 10px;
-            }
-            
-            .countdown-value {
-                font-size: 1.5rem;
             }
             
             .wagerrace-circle {
@@ -624,6 +693,19 @@
             .wagerrace-step-text {
                 font-size: 0.8rem;
             }
+            
+            .name-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .kick-button {
+                position: relative;
+                right: auto;
+                top: auto;
+                transform: none;
+                margin-top: 10px;
+            }
         }
     </style>
 </head>
@@ -637,25 +719,16 @@
         <header>
             <div class="profile-container">
                 <div class="profile-photo">
-                    <i class="fas fa-crown"></i>
+                    <img src="111.png" alt="Crown Icon">
                 </div>
-                <h1>hunchos007tv</h1>
-                <p class="tagline">Next Generation Raffle & Wager Platform</p>
-                
-                <div class="countdown">
-                    <div class="countdown-item">
-                        <div class="countdown-value">07</div>
-                        <div class="countdown-label">DAYS</div>
-                    </div>
-                    <div class="countdown-item">
-                        <div class="countdown-value">24</div>
-                        <div class="countdown-label">HOURS</div>
-                    </div>
-                    <div class="countdown-item">
-                        <div class="countdown-value">60</div>
-                        <div class="countdown-label">MINUTES</div>
-                    </div>
+                <div class="name-container">
+                    <h1>Hunchos007</h1>
+                    <div class="online-badge">Online</div>
+                    <a href="https://kick.com/hunchos007" class="kick-button" target="_blank">
+                        <i class="fas fa-play-circle"></i> Kick
+                    </a>
                 </div>
+                <p class="tagline">Exclusive Stake offers and gambling content</p>
                 
                 <div class="social-buttons">
                     <a href="https://www.instagram.com/hunchos007tv/" class="social-btn instagram">
@@ -667,6 +740,7 @@
                     <a href="https://discord.gg/pEA5sUtNHQ" class="social-btn discord">
                         <i class="fab fa-discord"></i>
                     </a>
+                
                 </div>
             </div>
         </header>
@@ -674,25 +748,10 @@
         <!-- Circular WagerRace Card -->
         <div class="wagerrace-circle-container">
             <div class="wagerrace-circle">
-                <h2><i class="fas fa-calendar-alt"></i> Monthly WagerRace</h2>
-                <p>Join the monthly wager-race running from the 7th to 7th with increased rewards!</p>
+                <h2><i class="fas fa-calendar-alt"></i> $1,000 Monthly leaderboard</h2>
+                <p>Compete with other players for huge prizes and VIP status.</p>
                 
-                <div class="wagerrace-steps">
-                    <div class="wagerrace-step">
-                        <div class="wagerrace-step-number">1</div>
-                        <div class="wagerrace-step-text">Register for the monthly event before the deadline.</div>
-                    </div>
-                    
-                    <div class="wagerrace-step">
-                        <div class="wagerrace-step-number">2</div>
-                        <div class="wagerrace-step-text">Maintain consistent participation throughout the month.</div>
-                    </div>
-                    
-                    <div class="wagerrace-step">
-                        <div class="wagerrace-step-number">3</div>
-                        <div class="wagerrace-step-text">Claim your rewards at the end of the cycle.</div>
-                    </div>
-                </div>
+        
             </div>
         </div>
         
@@ -702,68 +761,76 @@
             
             <div class="partners">
                 <div class="partner-card">
-                    <div class="partner-logo">Stake.com </div>
+                    <a href="https://stake.com" class="partner-link" target="_blank"></a>
+                    <div class="partner-image">
+                        <img src="222.gif" alt="Stake.com">
+                    </div>
+                    <div class="partner-logo">Stake.com</div>
                     <div class="partner-subtitle">World's Largest Online Casino and Sportsbook</div>
                     
                     <h3><i class="fas fa-star"></i> Top Features</h3>
                     <ul class="partner-features">
-                        <li>Instant processing with no delays or negative balances</li>
-                        <li>Wager-race optimized for "practical" TheGodor strategies</li>
-                        <li>Evaluate giveaways, challenges, and social engagement metrics</li>
+                        <li>Instant Crupto Deposits </li>
+                        <li>Higher betting limits </li>
+                        <li>VPN freindly </li>
                     </ul>
                     
                     <div class="code-section">
                         <div class="code-label">
                             <i class="fas fa-gamepad"></i> REGISTER WITH MY CODE
                         </div>
-                        <div class="code">STAKE.COM</div>
-                        <div class="note">Use this code during registration to unlock exclusive benefits</div>
+                        <div class="code">Hunchos</div>
+                        <div class="note">USE CODE "HUNCHOS" DURING REGISTRATION TO UNLOCK Exclusive BENIFITS </div>
                     </div>
                 </div>
                 
                 <div class="partner-card">
+                    <a href="https://stake.us" class="partner-link" target="_blank"></a>
+                    <div class="partner-image">
+                        <img src="333.gif" alt="Stake.us">
+                    </div>
                     <div class="partner-logo">Stake.us</div>
                     
                     
                     <h3><i class="fas fa-gem"></i> Premium Features</h3>
                     <ul class="partner-features">
-                        <li>File/app integration saving your weekly "TheGodor" progress</li>
-                        <li>Direct access to exclusive wager-races and priority support</li>
-                        <li>Instant verification with enhanced security protocols</li>
+                        <li>Card payments </li>
+                        <li>Instant Crypto Deposits</li>
+                        <li>Daily Rewards</li>
+                        <li>Receive $25 for FREE</li>
+                        <li>Receive $1 EVERY DAY</li>
                     </ul>
                     
                     <div class="code-section">
                         <div class="code-label">
                             <i class="fas fa-gamepad"></i> REGISTER WITH MY CODE
                         </div>
-                        <div class="code">STAKE.US</div>
-                        <div class="note">Use this code during registration to unlock premium features</div>
+                        <div class="code">HUNCHOS007</div>
+                        <div class="note">USE MY CODE "HUNCHOS007" DURING REGISTRATION TO UNLOCK PREMIEUM FEATURES</div>
                     </div>
                 </div>
             </div>
         </div>
         
         <footer>
-            <p>&copy; 2023 hunchos007tv Platform. All rights reserved.</p>
-            <p>Participate responsibly. Must be 18+ to join wager races. Please gamble responsibly.</p>
-            <div class="footer-links">
-                <a href="#">Terms of Service</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Contact Support</a>
-            </div>
+            <p>&copy; 2025 hunchos007 Platform. All rights reserved.</p>
+            <p>Important Gambling Disclaimer
+This website provides information about online casino bonuses and gambling content for entertainment purposes. Please gamble responsibly. Gambling can be addictive.
+Problem Gambling Hotline: 1-800-522-4700 | Crisis Text Line: Text HOME to 741741 | Gambling Addiction Help: ncpgambling.org
+By using this site, you acknowledge that you are 18+ years old and accept full responsibility for your gambling activities. </p>
+          
         </footer>
     </div>
 
     <script>
-        // Simple countdown timer (for demonstration)
-        function updateCountdown() {
-            const daysElement = document.querySelector('.countdown-value');
-            // This is just a demo - in a real app you would calculate actual time remaining
-        }
-        
-        // Initialize
+        // Simple script to toggle online status (for demonstration)
         document.addEventListener('DOMContentLoaded', function() {
-            updateCountdown();
+            const onlineBadge = document.querySelector('.online-badge');
+            
+            // Simulate online status with a pulsing effect
+            setInterval(() => {
+                onlineBadge.style.opacity = onlineBadge.style.opacity === '0.8' ? '1' : '0.8';
+            }, 1000);
         });
     </script>
 </body>
